@@ -11,8 +11,8 @@ object TicTacToe {
     @JvmStatic
     fun main(args: Array<String>) {
         val gameSize: Int
-        val minimumGameSize = 1
-        val maximumGameSize = 26
+        val minimumGameSize :Int = 1
+        val maximumGameSize :Int = 26
 
         //When program starts, user is met with a welcome message
         println("\n\tWelcome to this wonderful and lovely game of TicTacToe.")
@@ -29,8 +29,8 @@ object TicTacToe {
         //validate user unput for game size
         valid_input = false
         while (!valid_input) {
-            if (user_input!!.length > 0 && user_input!!.substring(0, 1)
-                    .matches("[1-9]") && minimumGameSize <= user_input!!.toInt() && user_input!!.toInt() <= maximumGameSize
+            if (!(user_input!!.length <= 0 || !user_input!!.substring(0, 1)
+                        .matches(Regex(String())) || minimumGameSize > user_input!!.toInt() || user_input!!.toInt() > maximumGameSize)
             ) {
                 valid_input = true
             } else {
@@ -61,28 +61,28 @@ object TicTacToe {
         }
 
         //Draw the blank board initially to show user which columns and rows to choose from
-        println(game.output())
+        println(game!!.output())
 
         //until the game is over, go back and forth between players in players array
         //output the game map to the screen after each move
-        while (!game.finished) {
+        while (!game!!.finished) {
             for (player in players) {
-                player.go()
+                player?.go()
                 println(
                     """
-                        
-                        ${game.output()}
+
+                      ${game!!.output()}
                         """.trimIndent()
                 )
                 count += 1
-                if (game.finished) {
+                if (game!!.finished) {
                     break
                 }
             }
         }
 
         //output an ending message to the game
-        if (game.draw) {
+        if (game!!.draw) {
             println("\n\tCat's game!")
         } else {
 
@@ -112,7 +112,7 @@ object TicTacToe {
         var user_input = user_input
         valid_input = false
         while (!valid_input) {
-            if (user_input!!.length == 1 && user_input.substring(0, 1).matches("[1-2]")) {
+            if (user_input!!.length == 1 && user_input.substring(0, 1).matches(Regex(String()))) {
                 valid_input = true
             } else {
                 user_input = getInput("\n\tYou must enter '1' or '2' for the game mode: ")
